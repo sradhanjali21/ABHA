@@ -10,3 +10,4 @@ const rootSlice = createSlice({
 
 export const { resetState } = rootSlice.actions;
 export default rootSlice.reducer;
+// export default rootSlice;
