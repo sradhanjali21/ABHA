@@ -1,25 +1,27 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { resetState } from "../redux/rootSlice";
-import { resetUserState } from "../redux/slices/userSlice";
-import { resetPhoneNumber } from "../redux/slices/NumberSlice";
+import { toast } from "react-toastify";
 
 const ABHAdashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const personalDetails = useSelector(
     (state: RootState) => state.personalDetails
   );
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (!personalDetails || Object.keys(personalDetails).length === 0) {
+      toast.error("You have to create a profile to access the dashboard");
+      navigate("/");
+    }
+  }, [personalDetails, navigate]);
 
   const handleGoBack = () => {
-    dispatch(resetState()); 
-    dispatch(resetUserState()); 
-    dispatch(resetPhoneNumber()); 
+    dispatch(resetState());
     navigate("/");
   };
 

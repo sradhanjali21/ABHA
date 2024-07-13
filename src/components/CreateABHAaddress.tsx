@@ -67,7 +67,7 @@ const CreateABHAaddress = () => {
       <div className="bg-[#D7E5FF] flex flex-col">
         <div className="flex flex-col justify-start">
           <ArrowBackIcon
-            className="text-black text-2xl font-bold"
+            className="text-black text-2xl font-bold m-3"
             onClick={() => navigate("/PersonalDetails")}
           />
           <ProgressBar currentStep={3} />

@@ -1,14 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import personalDetailsReducer from '../redux/slices/personalDetailsSlice';
-import userReducer from '../redux/slices/userSlice';
-import NumberSlice from './slices/NumberSlice';
-
+import { createSlice } from "@reduxjs/toolkit";
+import personalDetailsReducer from "../redux/slices/personalDetailsSlice";
+import userReducer from "../redux/slices/userSlice";
+import NumberSlice from "./slices/NumberSlice";
 
 const rootSlice = createSlice({
-  name: 'root',
+  name: "root",
   initialState: {},
   reducers: {
-    resetState: () => ({}) 
+    resetState: () => ({}),
   },
 });
 
@@ -16,7 +15,7 @@ export const { resetState } = rootSlice.actions;
 
 export const rootReducer = (state, action) => {
   if (action.type === resetState.type) {
-    return rootSlice.reducer(undefined, action); 
+    return rootSlice.reducer(undefined, action);
   }
   return {
     personalDetails: personalDetailsReducer(state.personalDetails, action),

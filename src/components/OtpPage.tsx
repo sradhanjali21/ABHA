@@ -3,9 +3,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ProgressBar from "./ProgressBar";
 import { otpimage } from "../assets/images";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const OtpPage = () => {
   const navigate = useNavigate();
+  const phoneNumber = useSelector((state: RootState) => state.number.phoneNumber);
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const [timer, setTimer] = useState(30);
   const [error, setError] = useState("");
@@ -21,10 +24,14 @@ const OtpPage = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (e.key === "Backspace" && otp[index] === "") {
       if (index > 0) {
-        const previousInput = e.currentTarget.previousElementSibling as HTMLInputElement;
+        const previousInput = e.currentTarget
+          .previousElementSibling as HTMLInputElement;
         previousInput?.focus();
       }
     }
@@ -34,7 +41,7 @@ const OtpPage = () => {
     e.preventDefault();
 
     if (otp.some((digit) => digit === "")) {
-      setError("Please fill the OTP."); 
+      setError("Please fill the OTP.");
       return;
     }
 
@@ -44,7 +51,7 @@ const OtpPage = () => {
       return;
     }
 
-    setError(""); 
+    setError("");
     navigate("/PersonalDetails");
   };
 
@@ -57,17 +64,25 @@ const OtpPage = () => {
     }
   }, [timer]);
 
+  const formatPhoneNumber = (number: string) => {
+    if (number.length === 10) {
+      return `${number.slice(0, 2)}XXXXXX${number.slice(-2)}`;
+    }
+    return number;
+  };
+
   return (
     <section className="flex flex-col bg-[#F3F6FF] h-screen">
       <div className="bg-[#D7E5FF] flex flex-col">
         <div className="flex flex-col justify-start">
-          <ArrowBackIcon className="text-black text-2xl font-bold"
-                      onClick={() => navigate("/RegistrationForm")}
-                       />
+          <ArrowBackIcon
+            className="text-black text-2xl font-bold m-3"
+            onClick={() => navigate("/RegistrationForm")}
+          />
         </div>
         <div className="flex flex-col items-center pb-3">
           <p className="text-lg text-black font-normal text-start">
-            We have sent a 6 digit OTP to XXXXXXXX87
+            We have sent a 6 digit OTP to {formatPhoneNumber(phoneNumber)}
           </p>
           <div className="flex justify-center mb-4">
             <img src={otpimage} alt="" className="w-44 h-44" />
@@ -77,7 +92,10 @@ const OtpPage = () => {
       <div className="w-full flex center justify-center py-4">
         <div className="md:w-[30%] bg-white px-6 py-6 rounded-lg shadow-lg border border-[#D7E5FF]">
           <p className="py-2 text-gray-600 font-bold">Enter OTP</p>
-          <form className="flex justify-between md:gap-0 gap-2 mb-2" onSubmit={handleSubmit}>
+          <form
+            className="flex justify-between md:gap-0 gap-2 mb-2"
+            onSubmit={handleSubmit}
+          >
             {otp.map((data, index) => (
               <input
                 className="w-12 h-12 text-center  text-lg border rounded"
@@ -92,7 +110,7 @@ const OtpPage = () => {
               />
             ))}
           </form>
-          {error && <p className="text-red-500 text-center py-2">{error}</p>} 
+          {error && <p className="text-red-500 text-center py-2">{error}</p>}
           <button
             type="submit"
             className="w-full bg-[#0743A1] rounded-3xl text-white py-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -105,7 +123,7 @@ const OtpPage = () => {
       <div className="flex justify-center gap-4 text-sm text-gray-600">
         <p>Didn’t receive OTP?</p>
         <p>
-          <span className="text-[#0743A1] font-bold">Resend OTP</span>{" "}
+          <span className="text-[#0743A1] font-bold mx-3">Resend OTP</span>{" "}
           {timer > 0 ? `00:${timer < 10 ? `0${timer}` : timer}` : ""}
         </p>
       </div>

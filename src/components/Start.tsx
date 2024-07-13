@@ -3,12 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { logo } from "../assets/images";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Start = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
     navigate("/RegistrationForm");
+  };
+
+  const profileCreated = useSelector((state: RootState) => state.profile.profileCreated);
+  const handleGoToDashboard = () => {
+    if (profileCreated) {
+      navigate("/Dashboard");
+    } else {
+      toast.error("You have to create a profile to go to the dashboard");
+    }
   };
 
   return (
@@ -24,9 +37,8 @@ const Start = () => {
           </p>
         </span>
         <span className="bg-[#F3F6FF] justify-center  flex flex-col items-center h-20 w-20 rounded-lg"
-        onClick={()=>{
-          navigate("/Dashboard");
-        }}
+                 onClick={handleGoToDashboard}
+
         >
           <AccountBoxIcon className="text-blue-700 text-xl" />
           <p className="text-sm font-semibold text-center">

@@ -23,6 +23,11 @@ const RegistrationForm = () => {
     return phoneRegex.test(number);
   };
 
+  const validateAadhaarNumber = (number: string) => {
+    const aadhaarRegex = /^[0-9]{12}$/;
+    return aadhaarRegex.test(number);
+  };
+
   useEffect(() => {
     console.log("Current phoneNumber:", phoneNumber);
   }, [phoneNumber]);
@@ -35,12 +40,20 @@ const RegistrationForm = () => {
       return;
     }
 
-    if (validatePhoneNumber(phoneNumber)) {
+    if (activeField === "phone" && validatePhoneNumber(phoneNumber)) {
+      setError("");
+      navigate("/OtpPage");
+    } else if (
+      activeField === "aadhaar" &&
+      validateAadhaarNumber(aadhaarNumber)
+    ) {
       setError("");
       navigate("/OtpPage");
     } else {
       setError(
-        "Invalid phone number. Must be 10 digits and not contain characters."
+        activeField === "phone"
+          ? "Invalid phone number. Must be 10 digits and not contain characters."
+          : "Invalid Aadhaar number. Must be 12 digits and not contain characters."
       );
     }
   };
@@ -48,9 +61,16 @@ const RegistrationForm = () => {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    // Only update state if the input is 10 digits or less
     if (/^\d*$/.test(value) && value.length <= 10) {
       dispatch(setPhoneNumber(value));
+    }
+  };
+
+  const handleAadhaarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (/^\d*$/.test(value) && value.length <= 12) {
+      setAadhaarNumber(value);
     }
   };
 
@@ -59,7 +79,7 @@ const RegistrationForm = () => {
       <div className="bg-[#D7E5FF] flex flex-col">
         <div className="flex flex-col justify-start">
           <ArrowBackIcon
-            className="text-black text-2xl font-bold"
+            className="text-black text-2xl font-bold m-3"
             onClick={() => navigate("/")}
           />
           <ProgressBar currentStep={1} />
@@ -129,7 +149,7 @@ const RegistrationForm = () => {
                       id="phone"
                       value={phoneNumber}
                       onChange={handlePhoneChange}
-                      className="pl-14 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      className="pl-14 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
                       placeholder="98xxxxxxxx"
                     />
                   </>
@@ -139,8 +159,8 @@ const RegistrationForm = () => {
                     type="text"
                     id="aadhaar"
                     value={aadhaarNumber}
-                    onChange={(e) => setAadhaarNumber(e.target.value)}
-                    className="pl-3 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    onChange={handleAadhaarChange}
+                    className="pl-3 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
                     placeholder="Enter Aadhaar Number"
                   />
                 )}

@@ -29,10 +29,10 @@ const CreatePassword = () => {
     setShowError(false);
     setValidationErrors([]);
 
-      setIsNumberPresent(/\d/.test(value));
-      setIsUpperCasePresent(/[A-Z]/.test(value));
-      setIsLowerCasePresent(/[a-z]/.test(value));
-      setIsSpecialCharPresent(/[!@#$%^&*(),.?":{}|<>]/.test(value));
+    setIsNumberPresent(/\d/.test(value));
+    setIsUpperCasePresent(/[A-Z]/.test(value));
+    setIsLowerCasePresent(/[a-z]/.test(value));
+    setIsSpecialCharPresent(/[!@#$%^&*(),.?":{}|<>]/.test(value));
   };
 
   const handleSubmit = () => {
@@ -53,7 +53,7 @@ const CreatePassword = () => {
         setValidationErrors(errors);
       } else {
         setIsPasswordSubmitted(true);
-        dispatch(setPassword("")); 
+        dispatch(setPassword(""));
         setCurrentStep(4);
       }
     }
@@ -64,7 +64,7 @@ const CreatePassword = () => {
       <div className="bg-[#D7E5FF] flex flex-col">
         <div className="flex flex-col justify-start">
           <ArrowBackIcon
-            className="text-black text-2xl font-bold"
+            className="text-black text-2xl font-bold m-3"
             onClick={() => navigate("/CreateABHAaddress")}
           />
           <ProgressBar currentStep={currentStep} />
@@ -85,7 +85,7 @@ const CreatePassword = () => {
                 className="w-full bg-[#0743A1] text-white rounded-full py-3 mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 onClick={() => {
                   navigate("/Dashboard");
-                }} 
+                }}
               >
                 Go to Profile
               </button>

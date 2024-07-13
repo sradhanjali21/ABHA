@@ -43,20 +43,36 @@ const PersonalDetails = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Limit phone input to 10 digits
-    if (name === "phone" && value.length > 10) {
-      return; // Ignore further input if it exceeds 10 digits
+    if (name === "phone") {
+      if (/^\d*$/.test(value) && value.length <= 10) {
+        setFormData({
+          ...formData,
+          phone: value,
+        });
+        setFormErrors((prev) => ({ ...prev, phone: false }));
+      } else {
+        setFormErrors((prev) => ({ ...prev, phone: true }));
+      }
+    } else if (name === "pincode") {
+      if (/^\d*$/.test(value) && value.length <= 6) {
+        setFormData({
+          ...formData,
+          pincode: value,
+        });
+        setFormErrors((prev) => ({ ...prev, pincode: false }));
+      } else {
+        setFormErrors((prev) => ({ ...prev, pincode: true }));
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setFormErrors({
+        ...formErrors,
+        [name]: false,
+      });
     }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
-    setFormErrors({
-      ...formErrors,
-      [name]: false,
-    });
   };
 
   const handleSubmit = (e) => {
@@ -115,7 +131,7 @@ const PersonalDetails = () => {
       <div className="flex flex-col">
         <div className="flex flex-col justify-start">
           <ArrowBackIcon
-            className="text-black text-2xl font-bold"
+            className="text-black text-2xl font-bold m-3"
             onClick={() => navigate("/RegistrationForm")}
           />
           <ProgressBar currentStep={2} />
@@ -288,7 +304,7 @@ const PersonalDetails = () => {
                     formErrors.phone && "Please enter a valid 10-digit number"
                   }
                   type="tel"
-                  inputProps={{ maxLength: 10 }} // Restrict max length to 10
+                  inputProps={{ maxLength: 10 }}
                 />
               </div>
               <div className="mb-4">
