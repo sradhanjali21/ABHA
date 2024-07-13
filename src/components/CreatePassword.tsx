@@ -104,7 +104,7 @@ const CreatePassword = () => {
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="********"
                 />
               </div>

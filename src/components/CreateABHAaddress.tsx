@@ -99,7 +99,7 @@ const CreateABHAaddress = () => {
                 type="text"
                 value={abhaAddress}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Your ABHA address"
               />
               <span className="absolute right-3 top-2.5 text-gray-500">

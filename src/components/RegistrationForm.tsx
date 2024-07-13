@@ -155,14 +155,16 @@ const RegistrationForm = () => {
                   </>
                 )}
                 {activeField === "aadhaar" && (
-                  <input
-                    type="text"
-                    id="aadhaar"
-                    value={aadhaarNumber}
-                    onChange={handleAadhaarChange}
-                    className="pl-3 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
-                    placeholder="Enter Aadhaar Number"
-                  />
+                  // <input
+                  //   type="text"
+                  //   id="aadhaar"
+                  //   value={aadhaarNumber}
+                  //   onChange={handleAadhaarChange}
+                  //   className="pl-3 pr-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                  //   placeholder="Enter Aadhaar Number"
+                  // />
+                  <>
+                  </>
                 )}
               </div>
               {error && <p className="text-red-500 mt-2">{error}</p>}

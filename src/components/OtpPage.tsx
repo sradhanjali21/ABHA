@@ -98,7 +98,7 @@ const OtpPage = () => {
           >
             {otp.map((data, index) => (
               <input
-                className="w-12 h-12 text-center  text-lg border rounded"
+                className="w-12 h-12 text-center  text-lg border rounded bg-white"
                 type="text"
                 name="otp"
                 maxLength={1}
